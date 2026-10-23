@@ -1,0 +1,20 @@
+# Excubitor catalog fragment -- Histrio (サービス所有 catalog)。
+services:
+  - code: histrio
+    name: Histrio (Persona + conversation engine extracted from Concordia)
+    tier: personal
+    project_code: histrio
+    component: backend
+    port: 4260
+    repo: LUDIARS/Histrio
+    runtime: node
+    cwd: ${ARS_ROOT}/Histrio
+    command: npm run dev
+    autostart: false
+    restart_policy: "no"
+    health:
+      type: http
+      url: http://localhost:4260/health
+      interval_sec: 30
+    provides:
+      HISTRIO_URL: http://${host}:${port}
