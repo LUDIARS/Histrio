@@ -29,3 +29,7 @@ spec/feature/role-model-engine.md をフルセットで実装する。persona �
 ## スコープ (編集可ディレクトリ)
 
 - Histrio リポ全体 (histrio-bootstrap の後続。persona store スキーマへの追加を含む)
+
+## 関連
+
+- 2026-11-19: 脚本層とロール選択関数は [2026-11-19-virtual-persona-life-script](2026-11-19-virtual-persona-life-script.md) (spec/feature/virtual-persona-life-script.md) で再構成される。本 task の実装は同 task へ統合して進める。

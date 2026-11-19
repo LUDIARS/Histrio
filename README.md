@@ -3,6 +3,7 @@
 ペルソナ + 会話エンジン。Concordia から persona / チャット判定・描画系を切り出した独立サービス。
 
 - **persona 正本**: 生成・session-end 学習 (heuristic、LLM 不使用)・フィードバック収集 (ぼやき含む)
+- **仮想人格**: 人生脚本パターンを反応の主因とし OK牧場を認識して会話 ([spec/feature/virtual-persona-life-script.md](spec/feature/virtual-persona-life-script.md))
 - **発話判定**: rules engine (tick/event/cooldown)・決定的 decide・注入ルールの決定的レビュー
 - **発話描画**: 中央 Haiku 描画 (render/responder)
 - **アンビエント参加**: opt-in チャンネルの会話傍聴 → 参加判定 + 発話案

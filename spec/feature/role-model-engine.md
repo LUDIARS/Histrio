@@ -13,10 +13,15 @@ tags:
 status: planned
 related:
   - feature/persona-chat-engine.md
-updated: 2026-08-12
+  - feature/virtual-persona-life-script.md
+updated: 2026-11-19
 ---
 
 # ロールモデルエンジン — 人生脚本 × 状況対応
+
+> **2026-11-19 改訂**: 脚本層とロール選択関数は [virtual-persona-life-script.md](virtual-persona-life-script.md) が正本。
+> 本書 §1 の並列ベクトルと §2.3 の選択関数は、同書 §1 / §4.4 で置き換える
+> (脚本パターンを反応の主因とし、エゴグラム等は表現調整の従属項とする)。
 
 ## 0. ねらい (2026-08-12 neco 指示)
 
@@ -31,6 +36,9 @@ LLM は使わない (persona エンジンは heuristic の原則を維持)。曖
 使う中央 Haiku 呼び出しへ相乗りさせる (§3)。
 
 ## 1. 脚本層 — persona プロファイル
+
+> 2026-11-19: 本節の並列ベクトルは [virtual-persona-life-script.md §1](virtual-persona-life-script.md#1-仮想人格の定義) で置き換え。
+> 脚本パターン (`script_pattern_id`) を主とし、下表の各軸は従属項として残る。
 
 persona ごとに次の構造化ベクトルを正本として持つ (`personas` テーブルへ列追加ではなく
 `persona_profiles` を新設):
@@ -77,6 +85,9 @@ persona ごとに次の構造化ベクトルを正本として持つ (`personas`
 | 静観 | 発話しない (参加見送り) | AC 高・慎重型・対立時 |
 
 ### 2.3 選択関数 (決定的)
+
+> 2026-11-19: 本節の選択関数は [virtual-persona-life-script.md §4.4](virtual-persona-life-script.md#44-ロール選択への接続) で置き換え。
+> エゴグラム内積はロール選択から外し tone 調整へ移す。以下は旧版として残す。
 
 ```
 score(role) = Σ 状況×ロール基礎重み (matrix)
