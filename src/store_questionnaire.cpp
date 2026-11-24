@@ -55,7 +55,7 @@ Json Store::run_questionnaire(std::string_view ns, std::string_view id, bool rer
         error_log("questionnaire failed: invocation, answer validation, or scoring");
         throw QuestionnaireError("questionnaire_generation_failed");
     }
-    auto assignment = questionnaire_assignment(derive_profile(persona), score);
+    auto assignment = keep_registered_pattern(persona, questionnaire_assignment(derive_profile(persona), score));
     const auto now = std::chrono::floor<std::chrono::seconds>(std::chrono::system_clock::now()).time_since_epoch().count();
     std::lock_guard lock(mutex_);
     Transaction tx(db_);

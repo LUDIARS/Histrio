@@ -49,12 +49,15 @@ updated: 2026-11-24
 3. **採点**: Discutere の採点手順を C++ に移したもの。Discutere の回答例 → 特徴カード例と同じ結果になることを受入テストにする。
 4. **割り当て**:
    - 脚本パターン = プロセス脚本の優位の 1 位。優位が無ければ seed からの割り当てに戻し、`source=seed` と記録する。
+   - 登録時に `script_pattern_id` を指定された人格 (Discutere の議論者テンプレートなど、型の見本として作った人格) は、
+     アンケートで脚本パターンを変えない。アンケートが示した型は `questionnaire_script_pattern_id` に残し、
+     優位から決まった場合は `source=registered` と記録する。ドライバー・構え・反応の具体例はアンケートから入れる (neco 2026-11-25)。
    - ドライバー (主 1 + 副 1) = ドライバーの優位。基本的構え = 自己・他者の帯 (境界は「境界」のまま)。
    - 確度 (高 / 中 / 低) を一緒に保存する。
 5. **追加質問 (任意)**: Discutere の `plan-life-script-followups` と同じ選び方で話題を決め、人格に設定どおり答えさせる。
    答えは `persona_reaction_examples` に保存し、描画 (`/v1/render`) で「この人ならこう言う」の例として渡す。
 6. **保存**: `persona_questionnaire_runs` に 回答・採点結果・アンケートの版・LLM の役割名・指示文の版・実行日時 を残す。
-   `persona_profiles` には `script_pattern_id` / ドライバー / 構え / 確度 / `source` (questionnaire | seed) と run の id を入れる。
+   `persona_profiles` には `script_pattern_id` / ドライバー / 構え / 確度 / `source` (questionnaire | registered | seed) と run の id を入れる。
 
 ## 3. 決定性
 

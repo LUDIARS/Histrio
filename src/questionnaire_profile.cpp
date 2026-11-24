@@ -37,4 +37,15 @@ Json questionnaire_assignment(const Json& seed, const Json& score) { return ::au
         profile["basic_quadrant"] = std::string(self == "positive" ? "I+" : "I-") + (other == "positive" ? "U+" : "U-");
     return profile;
 }, seed, score); /* augur-inject:contract-end:ba5473f6 */ }
+
+// 登録時に脚本の型を指定された人格 (Di の議論者テンプレートなど) は型の見本なので、
+// アンケートでは型を変えない。アンケートが示した型は参考として別の欄に残す。
+Json keep_registered_pattern(const Json& persona, Json assignment) {
+    const auto registered = field(persona, "script_pattern_id");
+    if (registered.empty()) return assignment;
+    assignment["questionnaire_script_pattern_id"] = assignment.at("script_pattern_id");
+    assignment["script_pattern_id"] = registered;
+    if (field(assignment, "source") == "questionnaire") assignment["source"] = "registered";
+    return assignment;
+}
 } // namespace hi

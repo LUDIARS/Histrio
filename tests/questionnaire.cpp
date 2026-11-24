@@ -81,7 +81,9 @@ void questionnaire_assignment_test() {
     require(fake.sections == 4 && fake.followups == 5, "four section calls and at most five followups");
     require(!run.contains("answers") && run.at("role") == "haiku", "creation omits raw answers and records role");
     const auto profile = fixture.store.profile("di", "speaker");
-    require(profile.at("script_pattern_id") == "until" && profile.at("primary_driver") == "perfect"
+    require(profile.at("script_pattern_id") == "after" && profile.at("questionnaire_script_pattern_id") == "until"
+            && profile.at("source") == "registered", "a registered script pattern is kept over the questionnaire");
+    require(profile.at("primary_driver") == "perfect"
             && profile.at("secondary_driver") == "strong" && profile.at("confidence") == "high",
             "dominance drives assignment");
     require(profile.at("basic_quadrant") == "border" && profile.at("position").at("other") == "positive",
@@ -111,6 +113,13 @@ void questionnaire_assignment_test() {
     require(send(api, "POST", "/v1/personas/blank/questionnaire?namespace=di").status == 400
             && fake.sections == 8 && fixture.store.profile("di", "blank").at("source") == "seed",
             "personas with no description retain the seed without model calls");
+
+    fake.answers = sample_answers();
+    fixture.store.put_persona("di", {{"id", "free"}, {"description", "型を指定しない架空の編集者"}});
+    require(send(api, "POST", "/v1/personas/free/questionnaire?namespace=di").status == 201, "unregistered persona runs");
+    const auto free = fixture.store.profile("di", "free");
+    require(free.at("script_pattern_id") == "until" && free.at("source") == "questionnaire"
+            && !free.contains("questionnaire_script_pattern_id"), "without a registered pattern the questionnaire decides");
 }
 
 void questionnaire_replay_test() {
@@ -122,8 +131,8 @@ void questionnaire_replay_test() {
     Store reopened(fixture.temp.path / "local.sqlite", seed(), roles());
     const auto saved = reopened.questionnaire("di", "speaker", true);
     const auto persona = reopened.persona("di", "speaker");
-    const auto replay = questionnaire_assignment(derive_profile(persona),
-        score_life_script(data.questionnaire, saved.at("answers")));
+    const auto replay = keep_registered_pattern(persona, questionnaire_assignment(derive_profile(persona),
+        score_life_script(data.questionnaire, saved.at("answers"))));
     require(same_questionnaire_profile(replay, reopened.profile("di", "speaker")),
             "replay from saved answers reproduces the persisted profile");
 }
