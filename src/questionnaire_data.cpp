@@ -7,9 +7,9 @@ LifeScriptData load_life_script(const std::filesystem::path& directory) {
     auto questionnaire = read_file(directory / "life-script-questionnaire.ja.json");
     auto bank = read_file(directory / "life-script-followups.ja.json");
     // The two upstream documents have independently versioned revisions.
-    if (field(questionnaire, "id") != "life-script-ja" || field(questionnaire, "revision") != "2026-11-13"
+    if (field(questionnaire, "id") != "life-script-ja" || field(questionnaire, "revision") != "2026-11-25"
         || field(bank, "questionnaire") != field(questionnaire, "id")
-        || field(bank, "id") != "life-script-followups-ja" || field(bank, "revision") != "2026-11-24")
+        || field(bank, "id") != "life-script-followups-ja" || field(bank, "revision") != "2026-11-25")
         throw InputError("unexpected life-script questionnaire or followup revision");
 
     const auto& sections = questionnaire.at("sections");
@@ -29,6 +29,11 @@ LifeScriptData load_life_script(const std::filesystem::path& directory) {
     if (seen.size() != 51) throw InputError("unexpected life-script item count");
     if (integer(bank.at("limits"), "maxTopics", 0, 1, 5) == 0)
         throw InputError("missing life-script followup limit");
+    // 問いに出す呼び名。ドライバー 5 種すべてに要る。
+    const auto plain = bank.find("plainLabels");
+    if (plain == bank.end() || !plain->is_object()) throw InputError("missing life-script plain labels");
+    for (const auto* key : {"be_perfect", "be_strong", "try_hard", "please_others", "hurry_up"})
+        if (field(*plain, key).empty()) throw InputError("missing life-script plain label");
     return {std::move(questionnaire), std::move(bank)};
 }
 } // namespace hi

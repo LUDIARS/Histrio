@@ -30,7 +30,8 @@ Json plan_life_script_followups(const LifeScriptData& data, const Json& score) {
     const auto& limits = bank.at("limits");
     const auto limit = limits.at("maxTopics").get<std::size_t>();
     const auto& templates = bank.at("templates");
-    const auto label = [&](const auto& key) { return field(q.at("labels"), key, key); };
+    // 問いには分析の呼び名 (「完全であれ」など) を出さない (neco 2026-11-25)。
+    const auto label = [&](const auto& key) { return field(bank.at("plainLabels"), key, key); };
     auto topics = Json::array();
     const auto add = [&](std::string_view kind, Json keys, Json ask, Json reasons) {
         topics.push_back({{"n", topics.size() + 1}, {"kind", kind}, {"keys", keys}, {"ask", ask}, {"basis", reasons}});
