@@ -1,0 +1,29 @@
+{
+  "name": "conversation-engine",
+  "description": "発話判定と描画。rules engine (tick/event/cooldown・決定的 decide)、Claude CLI による stateless 描画、Cc イベントフィードの接続クライアント。",
+  "presetRules": [],
+  "templateRules": [],
+  "membership": [
+    {
+      "pathPattern": "(^|/)src/rules.(cpp|hpp)$"
+    },
+    {
+      "pathPattern": "(^|/)src/render.cpp$"
+    },
+    {
+      "pathPattern": "(^|/)src/claude.cpp$"
+    },
+    {
+      "pathPattern": "(^|/)src/conversation.cpp$"
+    },
+    {
+      "pathPattern": "(^|/)src/feed.(cpp|hpp)$"
+    },
+    {
+      "pathPattern": "(^|/)contracts/(rules|render|backoff|health).hpp$"
+    }
+  ],
+  "specRefs": [
+    "Histrio — ペルソナ + 会話エンジン (Concordia からの切り出し)"
+  ]
+}

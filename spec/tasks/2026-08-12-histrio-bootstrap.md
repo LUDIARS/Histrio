@@ -2,6 +2,7 @@
 task: histrio-bootstrap
 project: Histrio
 kind: 実装
+actio: 21e99444-0636-4b3c-bc35-4f20b2c59ec3
 created: 2026-08-12
 memory_links:
   - spec/feature/persona-chat-engine.md
@@ -27,7 +28,7 @@ persona / rules / chat (render・responder) を Histrio へ移植して blackbox
   Histrio 内で動く。
 - Cc 側イベントフィードへの接続クライアント (事前共有トークン・再接続バックオフ) がある
   (Cc 側 module は別 task)。
-- 上記が Vitest でカバーされる。
+- C++23 の API ハンドラと一時 SQLite データベースを使い、上記を ctest で検証する。
 
 ## スコープ (編集可ディレクトリ)
 

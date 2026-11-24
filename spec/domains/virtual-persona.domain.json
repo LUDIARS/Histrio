@@ -1,0 +1,36 @@
+{
+  "name": "virtual-persona",
+  "description": "仮想人格。人生脚本パターン・立場ベクトル・OK牧場の象限・会話操作・ロール選択・判断ログ・上限付き学習。",
+  "presetRules": [],
+  "templateRules": [],
+  "membership": [
+    {
+      "pathPattern": "(^|/)src/patterns.cpp$"
+    },
+    {
+      "pathPattern": "(^|/)src/stance.cpp$"
+    },
+    {
+      "pathPattern": "(^|/)src/roles.cpp$"
+    },
+    {
+      "pathPattern": "(^|/)src/decision.cpp$"
+    },
+    {
+      "pathPattern": "(^|/)src/learning.cpp$"
+    },
+    {
+      "pathPattern": "(^|/)src/store_learning.cpp$"
+    },
+    {
+      "pathPattern": "(^|/)contracts/(stance|corral|decision|learning|role|situation).hpp$"
+    },
+    {
+      "pathPattern": "(^|/)data/(script-patterns|roles).json$"
+    }
+  ],
+  "specRefs": [
+    "仮想人格 — 人生脚本パターンを反応の主因とし OK牧場を認識して会話する",
+    "ロールモデルエンジン — 人生脚本 × 状況対応によるペルソナの高精度カテゴライズ"
+  ]
+}

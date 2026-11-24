@@ -2,6 +2,7 @@
 task: role-model-engine
 project: Histrio
 kind: 実装
+actio: 21e99444-0636-4b3c-bc35-4f20b2c59ec3
 created: 2026-08-12
 memory_links:
   - spec/feature/role-model-engine.md
@@ -24,7 +25,7 @@ spec/feature/role-model-engine.md をフルセットで実装する。persona �
 - matrix/重みが設定データとして注入可能 (rules の決定的レビュー経由)。
 - feedback の重み畳み込みが変動上限付きで動き、変更履歴が監査保存される。
 - WebUI (または API) で現在のプロファイル・重み・選択根拠を参照できる。
-- 上記が Vitest でカバーされ、spec の受け入れ基準 5 項目が全て検証される。
+- 上記を C++23 で実装し、spec の受け入れ基準 5 項目を ctest で検証する。
 
 ## スコープ (編集可ディレクトリ)
 

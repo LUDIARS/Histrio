@@ -1,0 +1,35 @@
+{
+  "name": "service-runtime",
+  "description": "ループバック HTTP サーバ・入口・入力の上限・テスト支援。",
+  "presetRules": [],
+  "templateRules": [],
+  "membership": [
+    {
+      "pathPattern": "(^|/)src/api.(cpp|hpp)$"
+    },
+    {
+      "pathPattern": "(^|/)src/main.cpp$"
+    },
+    {
+      "pathPattern": "(^|/)src/input.cpp$"
+    },
+    {
+      "pathPattern": "(^|/)src/service.hpp$"
+    },
+    {
+      "pathPattern": "(^|/)tests/[^/]+$"
+    },
+    {
+      "pathPattern": "(^|/)include/augur/[^/]+$"
+    },
+    {
+      "pathPattern": "(^|/)CMakeLists.txt$"
+    },
+    {
+      "pathPattern": "(^|/)cmake/[^/]+$"
+    }
+  ],
+  "specRefs": [
+    "Histrio — ペルソナ + 会話エンジン (Concordia からの切り出し)"
+  ]
+}

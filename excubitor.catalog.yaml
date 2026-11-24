@@ -7,14 +7,16 @@ services:
     component: backend
     port: 4260
     repo: LUDIARS/Histrio
+    # Excubitor に native 用の runtime は無いので runtime: node のまま、command に C++ の実行ファイルを書く
+    # (Discutere の catalog と同じ形)
     runtime: node
     cwd: ${ARS_ROOT}/Histrio
-    command: npm run dev
+    command: build/bin/histrio-server.exe
     autostart: false
     restart_policy: "no"
     health:
       type: http
-      url: http://localhost:4260/health
+      url: http://127.0.0.1:4260/health
       interval_sec: 30
     provides:
       HISTRIO_URL: http://${host}:${port}

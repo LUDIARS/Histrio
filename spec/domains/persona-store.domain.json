@@ -1,0 +1,26 @@
+{
+  "name": "persona-store",
+  "description": "人格の正本。SQLite の名前空間別 (cc/di/shared) 人格・プロファイル・旧 Concordia DB からの移行。",
+  "presetRules": [],
+  "templateRules": [],
+  "membership": [
+    {
+      "pathPattern": "(^|/)src/store.(cpp|hpp)$"
+    },
+    {
+      "pathPattern": "(^|/)src/database.(cpp|hpp)$"
+    },
+    {
+      "pathPattern": "(^|/)src/import.cpp$"
+    },
+    {
+      "pathPattern": "(^|/)src/profile.cpp$"
+    },
+    {
+      "pathPattern": "(^|/)contracts/profile.hpp$"
+    }
+  ],
+  "specRefs": [
+    "Histrio — ペルソナ + 会話エンジン (Concordia からの切り出し)"
+  ]
+}

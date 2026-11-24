@@ -1,0 +1,426 @@
+{
+  "version": 1,
+  "native": [
+    {
+      "file": "src/api.cpp",
+      "standard": "c++23",
+      "includes": [
+        "src",
+        "include",
+        "tests",
+        "contracts"
+      ],
+      "defines": [
+        "WIN32_LEAN_AND_MEAN",
+        "NOMINMAX"
+      ],
+      "packages": [
+        "odeum-json-3-11-3",
+        "lorica-5e8281b",
+        "discutere-sqlite-3-53-4",
+        "discutere-lapilli-f4aa7d5"
+      ]
+    },
+    {
+      "file": "src/claude.cpp",
+      "standard": "c++23",
+      "includes": [
+        "src",
+        "include",
+        "tests",
+        "contracts"
+      ],
+      "defines": [
+        "WIN32_LEAN_AND_MEAN",
+        "NOMINMAX"
+      ],
+      "packages": [
+        "odeum-json-3-11-3",
+        "lorica-5e8281b",
+        "discutere-sqlite-3-53-4",
+        "discutere-lapilli-f4aa7d5"
+      ]
+    },
+    {
+      "file": "src/conversation.cpp",
+      "standard": "c++23",
+      "includes": [
+        "src",
+        "include",
+        "tests",
+        "contracts"
+      ],
+      "defines": [
+        "WIN32_LEAN_AND_MEAN",
+        "NOMINMAX"
+      ],
+      "packages": [
+        "odeum-json-3-11-3",
+        "lorica-5e8281b",
+        "discutere-sqlite-3-53-4",
+        "discutere-lapilli-f4aa7d5"
+      ]
+    },
+    {
+      "file": "src/database.cpp",
+      "standard": "c++23",
+      "includes": [
+        "src",
+        "include",
+        "tests",
+        "contracts"
+      ],
+      "defines": [
+        "WIN32_LEAN_AND_MEAN",
+        "NOMINMAX"
+      ],
+      "packages": [
+        "odeum-json-3-11-3",
+        "lorica-5e8281b",
+        "discutere-sqlite-3-53-4",
+        "discutere-lapilli-f4aa7d5"
+      ]
+    },
+    {
+      "file": "src/decision.cpp",
+      "standard": "c++23",
+      "includes": [
+        "src",
+        "include",
+        "tests",
+        "contracts"
+      ],
+      "defines": [
+        "WIN32_LEAN_AND_MEAN",
+        "NOMINMAX"
+      ],
+      "packages": [
+        "odeum-json-3-11-3",
+        "lorica-5e8281b",
+        "discutere-sqlite-3-53-4",
+        "discutere-lapilli-f4aa7d5"
+      ]
+    },
+    {
+      "file": "src/feed.cpp",
+      "standard": "c++23",
+      "includes": [
+        "src",
+        "include",
+        "tests",
+        "contracts"
+      ],
+      "defines": [
+        "WIN32_LEAN_AND_MEAN",
+        "NOMINMAX"
+      ],
+      "packages": [
+        "odeum-json-3-11-3",
+        "lorica-5e8281b",
+        "discutere-sqlite-3-53-4",
+        "discutere-lapilli-f4aa7d5"
+      ]
+    },
+    {
+      "file": "src/import.cpp",
+      "standard": "c++23",
+      "includes": [
+        "src",
+        "include",
+        "tests",
+        "contracts"
+      ],
+      "defines": [
+        "WIN32_LEAN_AND_MEAN",
+        "NOMINMAX"
+      ],
+      "packages": [
+        "odeum-json-3-11-3",
+        "lorica-5e8281b",
+        "discutere-sqlite-3-53-4",
+        "discutere-lapilli-f4aa7d5"
+      ]
+    },
+    {
+      "file": "src/input.cpp",
+      "standard": "c++23",
+      "includes": [
+        "src",
+        "include",
+        "tests",
+        "contracts"
+      ],
+      "defines": [
+        "WIN32_LEAN_AND_MEAN",
+        "NOMINMAX"
+      ],
+      "packages": [
+        "odeum-json-3-11-3",
+        "lorica-5e8281b",
+        "discutere-sqlite-3-53-4",
+        "discutere-lapilli-f4aa7d5"
+      ]
+    },
+    {
+      "file": "src/learning.cpp",
+      "standard": "c++23",
+      "includes": [
+        "src",
+        "include",
+        "tests",
+        "contracts"
+      ],
+      "defines": [
+        "WIN32_LEAN_AND_MEAN",
+        "NOMINMAX"
+      ],
+      "packages": [
+        "odeum-json-3-11-3",
+        "lorica-5e8281b",
+        "discutere-sqlite-3-53-4",
+        "discutere-lapilli-f4aa7d5"
+      ]
+    },
+    {
+      "file": "src/main.cpp",
+      "standard": "c++23",
+      "includes": [
+        "src",
+        "include",
+        "tests",
+        "contracts"
+      ],
+      "defines": [
+        "WIN32_LEAN_AND_MEAN",
+        "NOMINMAX",
+        "HI_CATALOG_PORT=1"
+      ],
+      "packages": [
+        "odeum-json-3-11-3",
+        "lorica-5e8281b",
+        "discutere-sqlite-3-53-4",
+        "discutere-lapilli-f4aa7d5"
+      ]
+    },
+    {
+      "file": "src/patterns.cpp",
+      "standard": "c++23",
+      "includes": [
+        "src",
+        "include",
+        "tests",
+        "contracts"
+      ],
+      "defines": [
+        "WIN32_LEAN_AND_MEAN",
+        "NOMINMAX"
+      ],
+      "packages": [
+        "odeum-json-3-11-3",
+        "lorica-5e8281b",
+        "discutere-sqlite-3-53-4",
+        "discutere-lapilli-f4aa7d5"
+      ]
+    },
+    {
+      "file": "src/profile.cpp",
+      "standard": "c++23",
+      "includes": [
+        "src",
+        "include",
+        "tests",
+        "contracts"
+      ],
+      "defines": [
+        "WIN32_LEAN_AND_MEAN",
+        "NOMINMAX"
+      ],
+      "packages": [
+        "odeum-json-3-11-3",
+        "lorica-5e8281b",
+        "discutere-sqlite-3-53-4",
+        "discutere-lapilli-f4aa7d5"
+      ]
+    },
+    {
+      "file": "src/render.cpp",
+      "standard": "c++23",
+      "includes": [
+        "src",
+        "include",
+        "tests",
+        "contracts"
+      ],
+      "defines": [
+        "WIN32_LEAN_AND_MEAN",
+        "NOMINMAX"
+      ],
+      "packages": [
+        "odeum-json-3-11-3",
+        "lorica-5e8281b",
+        "discutere-sqlite-3-53-4",
+        "discutere-lapilli-f4aa7d5"
+      ]
+    },
+    {
+      "file": "src/roles.cpp",
+      "standard": "c++23",
+      "includes": [
+        "src",
+        "include",
+        "tests",
+        "contracts"
+      ],
+      "defines": [
+        "WIN32_LEAN_AND_MEAN",
+        "NOMINMAX"
+      ],
+      "packages": [
+        "odeum-json-3-11-3",
+        "lorica-5e8281b",
+        "discutere-sqlite-3-53-4",
+        "discutere-lapilli-f4aa7d5"
+      ]
+    },
+    {
+      "file": "src/rules.cpp",
+      "standard": "c++23",
+      "includes": [
+        "src",
+        "include",
+        "tests",
+        "contracts"
+      ],
+      "defines": [
+        "WIN32_LEAN_AND_MEAN",
+        "NOMINMAX"
+      ],
+      "packages": [
+        "odeum-json-3-11-3",
+        "lorica-5e8281b",
+        "discutere-sqlite-3-53-4",
+        "discutere-lapilli-f4aa7d5"
+      ]
+    },
+    {
+      "file": "src/stance.cpp",
+      "standard": "c++23",
+      "includes": [
+        "src",
+        "include",
+        "tests",
+        "contracts"
+      ],
+      "defines": [
+        "WIN32_LEAN_AND_MEAN",
+        "NOMINMAX"
+      ],
+      "packages": [
+        "odeum-json-3-11-3",
+        "lorica-5e8281b",
+        "discutere-sqlite-3-53-4",
+        "discutere-lapilli-f4aa7d5"
+      ]
+    },
+    {
+      "file": "src/store.cpp",
+      "standard": "c++23",
+      "includes": [
+        "src",
+        "include",
+        "tests",
+        "contracts"
+      ],
+      "defines": [
+        "WIN32_LEAN_AND_MEAN",
+        "NOMINMAX"
+      ],
+      "packages": [
+        "odeum-json-3-11-3",
+        "lorica-5e8281b",
+        "discutere-sqlite-3-53-4",
+        "discutere-lapilli-f4aa7d5"
+      ]
+    },
+    {
+      "file": "src/store_learning.cpp",
+      "standard": "c++23",
+      "includes": [
+        "src",
+        "include",
+        "tests",
+        "contracts"
+      ],
+      "defines": [
+        "WIN32_LEAN_AND_MEAN",
+        "NOMINMAX"
+      ],
+      "packages": [
+        "odeum-json-3-11-3",
+        "lorica-5e8281b",
+        "discutere-sqlite-3-53-4",
+        "discutere-lapilli-f4aa7d5"
+      ]
+    },
+    {
+      "file": "tests/acceptance.cpp",
+      "standard": "c++23",
+      "includes": [
+        "src",
+        "include",
+        "tests",
+        "contracts"
+      ],
+      "defines": [
+        "WIN32_LEAN_AND_MEAN",
+        "NOMINMAX"
+      ],
+      "packages": [
+        "odeum-json-3-11-3",
+        "lorica-5e8281b",
+        "discutere-sqlite-3-53-4",
+        "discutere-lapilli-f4aa7d5"
+      ]
+    },
+    {
+      "file": "tests/bootstrap.cpp",
+      "standard": "c++23",
+      "includes": [
+        "src",
+        "include",
+        "tests",
+        "contracts"
+      ],
+      "defines": [
+        "WIN32_LEAN_AND_MEAN",
+        "NOMINMAX"
+      ],
+      "packages": [
+        "odeum-json-3-11-3",
+        "lorica-5e8281b",
+        "discutere-sqlite-3-53-4",
+        "discutere-lapilli-f4aa7d5"
+      ]
+    },
+    {
+      "file": "tests/personality.cpp",
+      "standard": "c++23",
+      "includes": [
+        "src",
+        "include",
+        "tests",
+        "contracts"
+      ],
+      "defines": [
+        "WIN32_LEAN_AND_MEAN",
+        "NOMINMAX"
+      ],
+      "packages": [
+        "odeum-json-3-11-3",
+        "lorica-5e8281b",
+        "discutere-sqlite-3-53-4",
+        "discutere-lapilli-f4aa7d5"
+      ]
+    }
+  ]
+}

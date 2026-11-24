@@ -1,0 +1,141 @@
+{
+  "situation": {
+    "divergence": {
+      "facilitator": 3,
+      "jester": 2,
+      "analyst": 1
+    },
+    "convergence": {
+      "promoter": 3,
+      "analyst": 2,
+      "facilitator": 1
+    },
+    "stagnation": {
+      "jester": 3,
+      "facilitator": 2,
+      "promoter": 1
+    },
+    "conflict": {
+      "critic": 3,
+      "observe": 2,
+      "facilitator": 1
+    },
+    "celebration": {
+      "supporter": 3,
+      "promoter": 2,
+      "jester": 1
+    },
+    "casual": {
+      "jester": 3,
+      "supporter": 2,
+      "facilitator": 1
+    },
+    "consensus": {
+      "moderator": 3,
+      "scribe": 2,
+      "facilitator": 1
+    }
+  },
+  "operation": {
+    "get-on-with": {
+      "facilitator": 3,
+      "supporter": 2,
+      "promoter": 2,
+      "moderator": 3,
+      "scribe": 2
+    },
+    "constructive-objection": {
+      "critic": 5,
+      "analyst": 3,
+      "debater_a": 3,
+      "debater_b": 3
+    },
+    "get-away-from": {
+      "analyst": 3,
+      "observe": 3,
+      "facilitator": 2
+    },
+    "get-nowhere-with": {
+      "observe": 5
+    }
+  },
+  "stance": {
+    "facilitator": [
+      0,
+      0,
+      0.5,
+      0,
+      1
+    ],
+    "critic": [
+      -1,
+      0,
+      0.5,
+      -0.5,
+      0
+    ],
+    "promoter": [
+      0.5,
+      1,
+      0.5,
+      0,
+      0
+    ],
+    "supporter": [
+      0.5,
+      0,
+      0,
+      0,
+      1
+    ],
+    "analyst": [
+      0,
+      0,
+      0,
+      -1,
+      0.5
+    ],
+    "jester": [
+      0,
+      0,
+      0.6,
+      0,
+      0
+    ],
+    "observe": [
+      0,
+      -1,
+      -1,
+      0,
+      0
+    ],
+    "debater_a": [
+      1,
+      0,
+      0.5,
+      0,
+      0
+    ],
+    "debater_b": [
+      -1,
+      0,
+      0.5,
+      0,
+      0
+    ],
+    "moderator": [
+      0,
+      0,
+      0,
+      0,
+      1
+    ],
+    "scribe": [
+      0,
+      0,
+      -0.5,
+      0.5,
+      1
+    ]
+  }
+}

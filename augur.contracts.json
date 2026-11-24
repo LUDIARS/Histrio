@@ -1,0 +1,83 @@
+{
+  "version": 1,
+  "importFrom": "augur/contract_runtime.hpp",
+  "contracts": [
+    {
+      "id": "C-1",
+      "criterion": "C-1 health(…): 200 と status=ok を返す",
+      "symbol": "health",
+      "file": "src/api.cpp",
+      "module": "contracts/health.hpp"
+    },
+    {
+      "id": "C-2",
+      "criterion": "C-2 derive_profile(…): seed から脚本を 1 個選び、5 軸の表現特性を導出する",
+      "symbol": "derive_profile",
+      "file": "src/profile.cpp",
+      "module": "contracts/profile.hpp"
+    },
+    {
+      "id": "C-3",
+      "criterion": "C-3 compute_stance(…): 脚本の反応を合成し各軸を [-1,1] に収める",
+      "symbol": "compute_stance",
+      "file": "src/stance.cpp",
+      "module": "contracts/stance.hpp"
+    },
+    {
+      "id": "C-4",
+      "criterion": "C-4 classify(…): 会話統計から状況と確信度を決定する",
+      "symbol": "classify",
+      "file": "src/conversation.cpp",
+      "module": "contracts/situation.hpp"
+    },
+    {
+      "id": "C-5",
+      "criterion": "C-5 corral(…): 自己象限から建設的な会話操作へ写像する",
+      "symbol": "corral",
+      "file": "src/conversation.cpp",
+      "module": "contracts/corral.hpp"
+    },
+    {
+      "id": "C-6",
+      "criterion": "C-6 choose_role(…): 静観操作を含むロール選択を決定する",
+      "symbol": "choose_role",
+      "file": "src/roles.cpp",
+      "module": "contracts/role.hpp"
+    },
+    {
+      "id": "C-7",
+      "criterion": "C-7 decide_rule(…): ルール条件から発火可否と宛先を決定する",
+      "symbol": "decide_rule",
+      "file": "src/rules.cpp",
+      "module": "contracts/rules.hpp"
+    },
+    {
+      "id": "C-8",
+      "criterion": "C-8 feed_backoff(…): 再接続間隔を 1〜60 秒に制限する",
+      "symbol": "feed_backoff",
+      "file": "src/feed.cpp",
+      "module": "contracts/backoff.hpp"
+    },
+    {
+      "id": "C-9",
+      "criterion": "C-9 build_prompt(…): 描画へ建設的反論と人間の属性を推定しない指示を渡す",
+      "symbol": "build_prompt",
+      "file": "src/render.cpp",
+      "module": "contracts/render.hpp"
+    },
+    {
+      "id": "C-10",
+      "criterion": "C-10 decision_record(…): 監査に必要な脚本版・ベクトル・象限・操作・ロールを返す",
+      "symbol": "decision_record",
+      "file": "src/decision.cpp",
+      "module": "contracts/decision.hpp"
+    },
+    {
+      "id": "C-11",
+      "criterion": "C-11 learning_step(…): 同日学習を上限内に収める",
+      "symbol": "learning_step",
+      "file": "src/learning.cpp",
+      "module": "contracts/learning.hpp"
+    }
+  ]
+}

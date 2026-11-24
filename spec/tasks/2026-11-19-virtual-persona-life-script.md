@@ -2,6 +2,7 @@
 task: virtual-persona-life-script
 project: Histrio
 kind: 実装
+actio: 21e99444-0636-4b3c-bc35-4f20b2c59ec3
 created: 2026-11-19
 memory_links:
   - spec/feature/virtual-persona-life-script.md
@@ -25,7 +26,7 @@ seed から決定的に割り当て、議論内容の features → 反応表 →
 - 相手の象限推定を人間の属性として保存しない。
 - `persona_decision_log` から発話の根拠 (パターン → ベクトル → 象限 → 操作 → ロール) を再現できる。
 - 学習による変動が上限付きで、`script_patterns` の版と変更履歴を監査できる。
-- 上記が Vitest でカバーされ、spec §7 の受け入れ基準 7 項目が全て検証される。
+- 上記を C++23 で実装し、spec §7 の受け入れ基準 7 項目を ctest で検証する。
 
 ## スコープ (編集可ディレクトリ)
 

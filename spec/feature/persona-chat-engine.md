@@ -75,9 +75,11 @@ Histrio ──(既存 API 呼び出し)──▶ Cc
 
 ## 4. 移行方針
 
+Histrio の実装は C++23、SQLite、Lorica を用いる。ローカル API と判断処理は ctest で検証する。
+
 1. **Histrio 骨格**: HTTP server + Excubitor catalog 登録 + health + persona store
    (SQLite、Cc の `persona_feedback_log` 等をインポート)。
-2. **描画系移植**: chat/render・responder・rules を Cc からコピーして Histrio で稼働。
+2. **描画系移植**: Cc の chat/render・responder・rules の挙動を Histrio の C++ に移植。
    blackbox-chat-engine spec の実装は最初から Histrio で行う (Cc には実装しない)。
 3. **Cc 側配線**: イベントフィード module + `POST /v1/chat` 受け口はそのまま。dispatcher の
    判定部を Histrio 呼び出しへ置換し、タスク注入の実行系だけ残す。
