@@ -78,4 +78,5 @@ void questionnaire_scoring_test();
 void questionnaire_invalid_test();
 void questionnaire_privacy_test();
 void questionnaire_followups_test();
+void claude_output_test();
 } // namespace hi::test

@@ -68,7 +68,8 @@ if(BUILD_TESTING)
                         profile situation role observe learning
                         pattern stance corral constructive privacy audit versions
                         questionnaire_assignment questionnaire_replay questionnaire_scoring
-                        questionnaire_invalid questionnaire_privacy questionnaire_followups)
+                        questionnaire_invalid questionnaire_privacy questionnaire_followups
+                        claude_output)
     add_test(NAME hi.${test} COMMAND histrio-tests ${test})
     set_tests_properties(hi.${test} PROPERTIES WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
   endforeach()

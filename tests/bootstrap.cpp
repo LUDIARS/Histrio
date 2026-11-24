@@ -117,4 +117,22 @@ void bootstrap_contract_test() {
     require(api.handle(req).status == 400, "overdeep JSON rejection");
     require(fixture.store.list_personas("shared").empty(), "rejected requests did not write");
 }
+
+void claude_output_test() {
+    // 1 件の結果オブジェクト (従来の形)
+    require(claude_result_text(R"({"type":"result","subtype":"success","is_error":false,"result":"hello"})") == "hello",
+            "object envelope");
+    // イベントの配列 (claude 2.1 系の --output-format json)。init などの前置きを読み飛ばす
+    require(claude_result_text(R"([{"type":"system","subtype":"init"},{"type":"assistant"},
+        {"type":"result","subtype":"success","is_error":false,"result":"{\"ok\":1}"}])") == R"({"ok":1})",
+            "array envelope");
+    const auto rejects = [](std::string_view output) {
+        try { (void)claude_result_text(output); } catch (const std::exception&) { return true; }
+        return false;
+    };
+    require(rejects(R"([{"type":"system","subtype":"init"}])"), "array without result");
+    require(rejects(R"([{"type":"result","subtype":"error_max_turns","is_error":true,"result":"x"}])"), "error result");
+    require(rejects(R"({"type":"result","subtype":"success","is_error":true,"result":"x"})"), "error object");
+    require(rejects("not json"), "not json");
+}
 } // namespace hi::test

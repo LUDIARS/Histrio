@@ -73,6 +73,9 @@ using Invoke = std::function<std::string(std::string_view)>;
 std::string build_prompt(const Json& persona, const Json& request, const Json& decision);
 Json render(const Json& persona, const Json& request, const Json& decision, const Invoke& invoke);
 Invoke claude_client(std::optional<std::string> role = std::nullopt);
+/** `claude -p --output-format json` の出力から本文を取り出す。1 件の結果オブジェクトと、
+ *  イベントの配列 (type=result の要素を使う) の両方を受け付ける。エラー・形の不一致は例外。 */
+std::string claude_result_text(std::string_view output);
 Json health();
 
 } // namespace hi

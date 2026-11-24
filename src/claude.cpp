@@ -28,15 +28,29 @@ Invoke claude_client(std::optional<std::string> role) {
         });
         cli::RunOptions options;
         options.cwd = std::filesystem::temp_directory_path();
-        options.max_stdout = 64 * 1024;
+        // 配列形式の出力は init イベント (プラグイン一覧など) を含むので、本文より大きくなる。
+        options.max_stdout = 1024 * 1024;
         options.max_stderr = 4096;
-        options.timeout = std::chrono::seconds(30);
+        // アンケートの 1 セクション (最大 20 問) を 1 回で答えさせるため、描画より長く待つ。
+        options.timeout = std::chrono::seconds(120);
         const auto reply = cli::run(launch, prompt, options);
         if (!reply.ok()) throw std::runtime_error("Claude CLI invocation failed");
-        const auto envelope = read_json(reply.out);
-        if (!envelope.is_object() || envelope.value("is_error", false) || field(envelope, "subtype", "success") != "success")
-            throw std::runtime_error("Claude CLI returned an error");
-        return required_string(envelope, "result");
+        return claude_result_text(reply.out);
     };
+}
+
+std::string claude_result_text(std::string_view output) {
+    const auto parsed = read_json(output);
+    const Json* envelope = nullptr;
+    if (parsed.is_array()) {
+        for (const auto& event : parsed) {
+            if (event.is_object() && field(event, "type", "") == "result") envelope = &event;
+        }
+    } else if (parsed.is_object()) {
+        envelope = &parsed;
+    }
+    if (envelope == nullptr || envelope->value("is_error", false) || field(*envelope, "subtype", "success") != "success")
+        throw std::runtime_error("Claude CLI returned an error");
+    return required_string(*envelope, "result");
 }
 } // namespace hi
