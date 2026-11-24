@@ -135,4 +135,23 @@ void claude_output_test() {
     require(rejects(R"({"type":"result","subtype":"success","is_error":true,"result":"x"})"), "error object");
     require(rejects("not json"), "not json");
 }
+
+void persona_delete_test() {
+    Fixture fixture;
+    Api api(fixture.store, {}, 12345);
+    require(send(api, "POST", "/v1/personas", {{"id", "alice"}, {"name", "Shared"}, {"script_pattern_id", "until"}}).status == 200,
+            "put shared persona");
+    require(send(api, "POST", "/v1/personas?namespace=di", {{"id", "alice"}, {"name", "Di"}}).status == 200, "put di persona");
+    require(send(api, "POST", "/v1/personas?namespace=di", {{"id", "bob"}, {"name", "Bob"}}).status == 200, "put di bob");
+    const auto deleted = send(api, "DELETE", "/v1/personas/alice?namespace=di");
+    require(deleted.status == 200 && read_json(deleted.body).at("deleted") == true, "delete di persona");
+    const auto di = read_json(send(api, "GET", "/v1/personas?namespace=di").body);
+    bool shared_visible = false;
+    for (const auto& persona : di) shared_visible |= persona.at("id") == "alice" && persona.at("name") == "Shared";
+    require(shared_visible, "shared persona stays after namespace delete");
+    require(send(api, "GET", "/v1/personas/bob/profile?namespace=di").status == 200, "other persona untouched");
+    require(send(api, "DELETE", "/v1/personas/alice?namespace=di").status == 404, "second delete is not found");
+    require(send(api, "DELETE", "/v1/personas/a%20b?namespace=di").status == 400, "invalid id");
+    require(send(api, "DELETE", "/v1/personas/alice?namespace=third").status == 400, "unknown namespace");
+}
 } // namespace hi::test

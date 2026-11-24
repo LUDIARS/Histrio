@@ -37,7 +37,7 @@ add_library(hi_core STATIC
   src/feed.cpp src/import.cpp src/input.cpp src/learning.cpp src/patterns.cpp
   src/profile.cpp src/questionnaire_api.cpp src/questionnaire_data.cpp src/questionnaire_followups.cpp
   src/questionnaire_profile.cpp src/questionnaire_prompts.cpp src/questionnaire_score.cpp
-  src/render.cpp src/roles.cpp src/rules.cpp src/stance.cpp src/store.cpp src/store_learning.cpp src/store_questionnaire.cpp)
+  src/render.cpp src/roles.cpp src/rules.cpp src/stance.cpp src/store.cpp src/store_learning.cpp src/store_delete.cpp src/store_questionnaire.cpp)
 target_include_directories(hi_core PUBLIC src PRIVATE include)
 target_link_libraries(hi_core PUBLIC Lapilli::net PRIVATE Lapilli::crypto Lapilli::one_shot hi_sqlite)
 hi_harden(hi_core)
@@ -69,7 +69,7 @@ if(BUILD_TESTING)
                         pattern stance corral constructive privacy audit versions
                         questionnaire_assignment questionnaire_replay questionnaire_scoring
                         questionnaire_invalid questionnaire_privacy questionnaire_followups
-                        claude_output questionnaire_reply_json)
+                        claude_output questionnaire_reply_json persona_delete)
     add_test(NAME hi.${test} COMMAND histrio-tests ${test})
     set_tests_properties(hi.${test} PROPERTIES WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
   endforeach()

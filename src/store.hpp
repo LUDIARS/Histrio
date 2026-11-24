@@ -16,6 +16,7 @@ public:
 
     Json put_persona(std::string_view ns, const Json& persona);
     Json list_personas(std::string_view ns);
+    Json delete_persona(std::string_view ns, std::string_view id);
     Json persona(std::string_view ns, std::string_view id);
     Json profile(std::string_view ns, std::string_view id);
     Json render_snapshot(std::string_view ns, std::string_view id);

@@ -33,6 +33,8 @@ Cc フィードはループバックの設定済み URL に `GET` と Bearer ト
 
 ## API
 
+人格として登録してよいのは、Histrio で定義する型 (テンプレート) の人格、Steam でレビューを多く書いている利用者、Concordia のチャット人格だけです。Discutere が議論ごとに作る使い捨ての議論者は人格として登録せず、Discutere 側の議論者テンプレートを経由します (neco 2026-11-24「Diの議論者はワンオフで作られた人格なので人格として扱うには不適切」)。
+
 各 API の namespace はクエリ `?namespace=cc`、`di` または `shared` で指定します。既定は `shared`。人格・脚本は同じ namespace の値を優先し、なければ `shared` を参照します。
 
 | メソッドとパス | 入出力 |
@@ -40,6 +42,7 @@ Cc フィードはループバックの設定済み URL に `GET` と Bearer ト
 | `GET /health` | `{"status":"ok"}` |
 | `GET /v1/personas` | 人格一覧 |
 | `POST /v1/personas` | `id` をキーに更新。任意の `seed`、`signals`、`script_pattern_id`、声色などを受け取る |
+| `DELETE /v1/personas/:id` | 指定 namespace の人格と、そのプロフィール・アンケート run・判断ログ・学習値を消す。`shared` の同名人格は残る。アンケート実行中は 409、無ければ 404 |
 | `GET /v1/personas/:id/profile` | `script_pattern_id`、版・表示名、エゴグラムなど |
 | `GET /v1/personas/:id/learning` | 現在版のロール重みと反応表の補正値 |
 | `POST /v1/personas/:id/decide` | `messages`、任意の `event`、`situation`、`topic` を受け取り、根拠と判断 ID を保存。`incremental: true` は同じ話題の新規メッセージだけを渡す |

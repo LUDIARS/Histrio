@@ -16,7 +16,8 @@ int main(int argc, char** argv) {
         {"questionnaire_assignment", questionnaire_assignment_test}, {"questionnaire_replay", questionnaire_replay_test},
         {"questionnaire_scoring", questionnaire_scoring_test}, {"questionnaire_invalid", questionnaire_invalid_test},
         {"questionnaire_privacy", questionnaire_privacy_test}, {"questionnaire_followups", questionnaire_followups_test},
-        {"claude_output", claude_output_test}, {"questionnaire_reply_json", questionnaire_reply_json_test}
+        {"claude_output", claude_output_test}, {"questionnaire_reply_json", questionnaire_reply_json_test},
+        {"persona_delete", persona_delete_test}
     };
     if (argc != 2 || !tests.contains(argv[1])) return 2;
     try {

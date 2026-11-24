@@ -161,6 +161,7 @@ ServerResponse Api::route(const ServerRequest& request) {
         auto rest = path.substr(13);
         const auto slash = rest.find('/');
         const auto id = rest.substr(0, slash);
+        if (slash == std::string_view::npos && method == "DELETE") return found(store_.delete_persona(ns, id));
         if (slash != std::string_view::npos) {
             const auto leaf = rest.substr(slash + 1);
             if (leaf == "profile" && method == "GET") return found(store_.profile(ns, id));
