@@ -5,12 +5,12 @@
 #include <lapilli/one_shot.hpp>
 
 namespace hi {
-Invoke claude_client() {
-    return [](std::string_view prompt) -> std::string {
+Invoke claude_client(std::optional<std::string> role) {
+    return [role = std::move(role)](std::string_view prompt) -> std::string {
         namespace cli = lapilli::one_shot;
         cli::PrepareOptions config;
         config.env = lapilli::process::current_environment();
-        const auto model = lapilli::process::env_get(*config.env, "HISTRIO_RENDER_MODEL").value_or("haiku");
+        const auto model = role.value_or(lapilli::process::env_get(*config.env, "HISTRIO_RENDER_MODEL").value_or("haiku"));
         const auto executable = lapilli::process::env_get(*config.env, "HISTRIO_CLAUDE_PATH").value_or("claude");
         if (model.empty() || executable.empty()) throw std::runtime_error("empty Claude configuration");
         auto launch = cli::prepare(executable,

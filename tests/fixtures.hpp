@@ -72,4 +72,10 @@ void constructive_test();
 void privacy_test();
 void audit_test();
 void versions_test();
+void questionnaire_assignment_test();
+void questionnaire_replay_test();
+void questionnaire_scoring_test();
+void questionnaire_invalid_test();
+void questionnaire_privacy_test();
+void questionnaire_followups_test();
 } // namespace hi::test

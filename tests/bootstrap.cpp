@@ -39,14 +39,17 @@ void import_test() {
 CREATE TABLE personas(id,name,description,traits,speech_style,skill_template,learned_notes,display_name,
                       generated,origin_session_id,created_at,updated_at);
 CREATE TABLE persona_feedback_log(id,persona_id,session_id,ts,kind,delta,detail);
+CREATE TABLE persona_questionnaire_runs(persona_id, answers);
 INSERT INTO personas VALUES('old','Old','','[]','','','["note"]','',0,NULL,1,2);
 INSERT INTO persona_feedback_log VALUES(1,'old',NULL,3,'boyaki','note',NULL);
+INSERT INTO persona_questionnaire_runs VALUES('old','{"D-BP-1":4}');
 )sql");
     }
     require(fixture.store.import_legacy(path) == Json{{"personas", 1}, {"feedback", 1}}, "legacy data imported");
     require(fixture.store.import_legacy(path) == Json{{"personas", 0}, {"feedback", 0}}, "import is idempotent");
     require(fixture.store.profile("cc", "old").contains("script_pattern_id"), "legacy persona gained a script");
     require(fixture.store.profile("di", "old").is_null(), "legacy namespace is isolated");
+    require(fixture.store.questionnaire("cc", "old", true).is_null(), "legacy import does not consume questionnaire data");
 }
 
 void render_test() {

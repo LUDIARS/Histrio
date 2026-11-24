@@ -78,6 +78,48 @@
       "symbol": "learning_step",
       "file": "src/learning.cpp",
       "module": "contracts/learning.hpp"
+    },
+    {
+      "id": "C-12",
+      "criterion": "C-12 questionnaire_assignment(…): 脚本の優位 1 位と確度を採用し、優位なしは seed に戻す",
+      "symbol": "questionnaire_assignment",
+      "file": "src/questionnaire_profile.cpp",
+      "module": "contracts/questionnaire_assignment.hpp"
+    },
+    {
+      "id": "C-13",
+      "criterion": "C-13 same_questionnaire_profile(…): 同じ保存済み回答から導いた脚本・ドライバー・構えが一致する",
+      "symbol": "same_questionnaire_profile",
+      "file": "tests/questionnaire.cpp",
+      "module": "contracts/questionnaire_replay.hpp"
+    },
+    {
+      "id": "C-14",
+      "criterion": "C-14 score_life_script(…): 版と有効回答数を保ち、Discutere と同じ尺度で採点する",
+      "symbol": "score_life_script",
+      "file": "src/questionnaire_score.cpp",
+      "module": "contracts/questionnaire_scoring.hpp"
+    },
+    {
+      "id": "C-15",
+      "criterion": "C-15 valid_section_answers(…): 回答の形・範囲・設問 ID を検査する",
+      "symbol": "valid_section_answers",
+      "file": "src/questionnaire_prompts.cpp",
+      "module": "contracts/questionnaire_validation.hpp"
+    },
+    {
+      "id": "C-16",
+      "criterion": "C-16 valid_questionnaire_request(…): 実行指定のみを受け付け、外部の回答や採点を拒む",
+      "symbol": "valid_questionnaire_request",
+      "file": "src/questionnaire_api.cpp",
+      "module": "contracts/questionnaire_request.hpp"
+    },
+    {
+      "id": "C-17",
+      "criterion": "C-17 generate_reaction_examples(…): 選んだ質問と回答だけを反応例として返す",
+      "symbol": "generate_reaction_examples",
+      "file": "src/questionnaire_prompts.cpp",
+      "module": "contracts/questionnaire_followups.hpp"
     }
   ]
 }

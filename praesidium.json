@@ -243,6 +243,126 @@
       ]
     },
     {
+      "file": "src/questionnaire_api.cpp",
+      "standard": "c++23",
+      "includes": [
+        "src",
+        "include",
+        "tests",
+        "contracts"
+      ],
+      "defines": [
+        "WIN32_LEAN_AND_MEAN",
+        "NOMINMAX"
+      ],
+      "packages": [
+        "odeum-json-3-11-3",
+        "lorica-5e8281b",
+        "discutere-sqlite-3-53-4",
+        "discutere-lapilli-f4aa7d5"
+      ]
+    },
+    {
+      "file": "src/questionnaire_data.cpp",
+      "standard": "c++23",
+      "includes": [
+        "src",
+        "include",
+        "tests",
+        "contracts"
+      ],
+      "defines": [
+        "WIN32_LEAN_AND_MEAN",
+        "NOMINMAX"
+      ],
+      "packages": [
+        "odeum-json-3-11-3",
+        "lorica-5e8281b",
+        "discutere-sqlite-3-53-4",
+        "discutere-lapilli-f4aa7d5"
+      ]
+    },
+    {
+      "file": "src/questionnaire_followups.cpp",
+      "standard": "c++23",
+      "includes": [
+        "src",
+        "include",
+        "tests",
+        "contracts"
+      ],
+      "defines": [
+        "WIN32_LEAN_AND_MEAN",
+        "NOMINMAX"
+      ],
+      "packages": [
+        "odeum-json-3-11-3",
+        "lorica-5e8281b",
+        "discutere-sqlite-3-53-4",
+        "discutere-lapilli-f4aa7d5"
+      ]
+    },
+    {
+      "file": "src/questionnaire_profile.cpp",
+      "standard": "c++23",
+      "includes": [
+        "src",
+        "include",
+        "tests",
+        "contracts"
+      ],
+      "defines": [
+        "WIN32_LEAN_AND_MEAN",
+        "NOMINMAX"
+      ],
+      "packages": [
+        "odeum-json-3-11-3",
+        "lorica-5e8281b",
+        "discutere-sqlite-3-53-4",
+        "discutere-lapilli-f4aa7d5"
+      ]
+    },
+    {
+      "file": "src/questionnaire_prompts.cpp",
+      "standard": "c++23",
+      "includes": [
+        "src",
+        "include",
+        "tests",
+        "contracts"
+      ],
+      "defines": [
+        "WIN32_LEAN_AND_MEAN",
+        "NOMINMAX"
+      ],
+      "packages": [
+        "odeum-json-3-11-3",
+        "lorica-5e8281b",
+        "discutere-sqlite-3-53-4",
+        "discutere-lapilli-f4aa7d5"
+      ]
+    },
+    {
+      "file": "src/questionnaire_score.cpp",
+      "standard": "c++23",
+      "includes": [
+        "src",
+        "include",
+        "tests",
+        "contracts"
+      ],
+      "defines": [
+        "WIN32_LEAN_AND_MEAN",
+        "NOMINMAX"
+      ],
+      "packages": [
+        "odeum-json-3-11-3",
+        "lorica-5e8281b",
+        "discutere-sqlite-3-53-4",
+        "discutere-lapilli-f4aa7d5"
+      ]
+    },
+    {
       "file": "src/render.cpp",
       "standard": "c++23",
       "includes": [
@@ -363,6 +483,26 @@
       ]
     },
     {
+      "file": "src/store_questionnaire.cpp",
+      "standard": "c++23",
+      "includes": [
+        "src",
+        "include",
+        "tests",
+        "contracts"
+      ],
+      "defines": [
+        "WIN32_LEAN_AND_MEAN",
+        "NOMINMAX"
+      ],
+      "packages": [
+        "odeum-json-3-11-3",
+        "lorica-5e8281b",
+        "discutere-sqlite-3-53-4",
+        "discutere-lapilli-f4aa7d5"
+      ]
+    },
+    {
       "file": "tests/acceptance.cpp",
       "standard": "c++23",
       "includes": [
@@ -404,6 +544,26 @@
     },
     {
       "file": "tests/personality.cpp",
+      "standard": "c++23",
+      "includes": [
+        "src",
+        "include",
+        "tests",
+        "contracts"
+      ],
+      "defines": [
+        "WIN32_LEAN_AND_MEAN",
+        "NOMINMAX"
+      ],
+      "packages": [
+        "odeum-json-3-11-3",
+        "lorica-5e8281b",
+        "discutere-sqlite-3-53-4",
+        "discutere-lapilli-f4aa7d5"
+      ]
+    },
+    {
+      "file": "tests/questionnaire.cpp",
       "standard": "c++23",
       "includes": [
         "src",

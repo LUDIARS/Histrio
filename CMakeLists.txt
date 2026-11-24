@@ -35,9 +35,11 @@ endif()
 add_library(hi_core STATIC
   src/api.cpp src/claude.cpp src/conversation.cpp src/database.cpp src/decision.cpp
   src/feed.cpp src/import.cpp src/input.cpp src/learning.cpp src/patterns.cpp
-  src/profile.cpp src/render.cpp src/roles.cpp src/rules.cpp src/stance.cpp src/store.cpp src/store_learning.cpp)
+  src/profile.cpp src/questionnaire_api.cpp src/questionnaire_data.cpp src/questionnaire_followups.cpp
+  src/questionnaire_profile.cpp src/questionnaire_prompts.cpp src/questionnaire_score.cpp
+  src/render.cpp src/roles.cpp src/rules.cpp src/stance.cpp src/store.cpp src/store_learning.cpp src/store_questionnaire.cpp)
 target_include_directories(hi_core PUBLIC src PRIVATE include)
-target_link_libraries(hi_core PUBLIC Lapilli::net PRIVATE Lapilli::one_shot hi_sqlite)
+target_link_libraries(hi_core PUBLIC Lapilli::net PRIVATE Lapilli::crypto Lapilli::one_shot hi_sqlite)
 hi_harden(hi_core)
 lorica_deprecate_unsafe_apis(hi_core)
 if(MSVC)
@@ -57,13 +59,16 @@ target_compile_definitions(histrio-server PRIVATE HI_CATALOG_PORT=${CMAKE_MATCH_
 set_target_properties(histrio-server PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/$<0:>")
 
 if(BUILD_TESTING)
-  add_executable(histrio-tests tests/acceptance.cpp tests/bootstrap.cpp tests/personality.cpp)
+  add_executable(histrio-tests tests/acceptance.cpp tests/bootstrap.cpp tests/personality.cpp tests/questionnaire.cpp)
   target_link_libraries(histrio-tests PRIVATE hi_core hi_sqlite)
+  target_include_directories(histrio-tests PRIVATE include)
   hi_harden(histrio-tests)
   target_compile_definitions(histrio-tests PRIVATE HI_TEST_DATA="${CMAKE_CURRENT_SOURCE_DIR}/data")
   foreach(test IN ITEMS health personas import render rules feed bootstrap_contract
                         profile situation role observe learning
-                        pattern stance corral constructive privacy audit versions)
+                        pattern stance corral constructive privacy audit versions
+                        questionnaire_assignment questionnaire_replay questionnaire_scoring
+                        questionnaire_invalid questionnaire_privacy questionnaire_followups)
     add_test(NAME hi.${test} COMMAND histrio-tests ${test})
     set_tests_properties(hi.${test} PROPERTIES WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
   endforeach()

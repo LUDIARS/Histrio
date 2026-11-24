@@ -23,6 +23,6 @@ Json derive_profile(const Json& persona) { return ::augur::invoke_observed(::aug
     return {{"script_pattern_id", field(persona, "script_pattern_id", ids[script % ids.size()])},
             {"egogram", egogram}, {"primary_driver", drivers[primary]},
             {"secondary_driver", drivers[secondary]}, {"basic_quadrant", "I+U+"},
-            {"tendency", tendencies[(hash >> 51) % tendencies.size()]}};
+            {"tendency", tendencies[(hash >> 51) % tendencies.size()]}, {"source", "seed"}};
 }, persona); /* augur-inject:contract-end:c5b41f62 */ }
 } // namespace hi

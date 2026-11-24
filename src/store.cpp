@@ -10,6 +10,19 @@ CREATE TABLE IF NOT EXISTS persona_profiles (
   namespace TEXT NOT NULL, id TEXT NOT NULL, payload TEXT NOT NULL, PRIMARY KEY(namespace,id),
   FOREIGN KEY(namespace,id) REFERENCES personas(namespace,id)
 );
+CREATE TABLE IF NOT EXISTS persona_questionnaire_runs (
+  id INTEGER PRIMARY KEY, namespace TEXT NOT NULL, persona_id TEXT NOT NULL,
+  questionnaire TEXT NOT NULL, revision TEXT NOT NULL, followup_revision TEXT NOT NULL,
+  role TEXT NOT NULL, prompt_revision TEXT NOT NULL, created_at INTEGER NOT NULL,
+  answers TEXT NOT NULL, score TEXT NOT NULL, assignment TEXT NOT NULL,
+  FOREIGN KEY(namespace,persona_id) REFERENCES personas(namespace,id)
+);
+CREATE INDEX IF NOT EXISTS questionnaire_latest ON persona_questionnaire_runs(namespace,persona_id,id DESC);
+CREATE TABLE IF NOT EXISTS persona_reaction_examples (
+  run_id INTEGER NOT NULL REFERENCES persona_questionnaire_runs(id),
+  ordinal INTEGER NOT NULL, question TEXT NOT NULL, answer TEXT NOT NULL,
+  PRIMARY KEY(run_id,ordinal)
+);
 CREATE TABLE IF NOT EXISTS script_pattern_versions (
   seq INTEGER PRIMARY KEY, namespace TEXT NOT NULL, version TEXT NOT NULL, payload TEXT NOT NULL,
   UNIQUE(namespace,version)
@@ -60,6 +73,7 @@ Store::Store(const std::filesystem::path& path, const Json& patterns, const Json
 
 Json Store::put_persona_unlocked(std::string_view ns, const Json& persona) {
     if (!persona.is_object()) throw InputError("expected a persona object");
+    if (persona.contains("speakerKey")) throw InputError("external persona packs are not virtual personas");
     const auto id = required_string(persona, "id");
     check_key(id);
     const auto existing = find_persona(db_, "personas", ns, id);
@@ -93,6 +107,9 @@ Json Store::put_persona_unlocked(std::string_view ns, const Json& persona) {
     if (field(payload, "name").empty()) payload["name"] = id;
     payload["namespace"] = ns;
     auto profile = derive_profile(payload);
+    const auto prior = find_persona(db_, "persona_profiles", ns, id);
+    if (field(prior, "namespace") == ns && prior.contains("questionnaire_run_id") && questionnaire_eligible(payload))
+        profile = prior;
     const auto pattern_id = required_string(profile, "script_pattern_id");
     check_key(pattern_id);
     const auto pattern = script(ns, pattern_id);
@@ -142,6 +159,7 @@ Json Store::profile(std::string_view ns, std::string_view id) {
     std::lock_guard lock(mutex_);
     auto result = find_persona(db_, "persona_profiles", ns, id);
     if (!result.is_null()) {
+        if (!result.contains("source")) result["source"] = "seed";
         const auto pattern = script(ns, required_string(result, "script_pattern_id"));
         result["script_pattern_version"] = pattern.at("version");
         result["script_pattern_label"] = pattern.at("label");

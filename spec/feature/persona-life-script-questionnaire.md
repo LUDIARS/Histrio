@@ -9,6 +9,7 @@ tags:
   - life-script
   - questionnaire
 status: decided
+actio: actio:0ac4e100-631f-456e-bbea-eeceba73fb16
 related:
   - feature/virtual-persona-life-script.md
   - feature/role-model-engine.md
@@ -64,7 +65,7 @@ updated: 2026-11-24
 ## 4. アンケートの正本
 
 - 設問・採点キー・追加質問の文例の正本は当面 Discutere (`skills/creator-insight/data/`)。
-- Histrio は同じファイルを `data/life-script/` に**版を固定して**持ち、`questionnaire` / `revision` が一致しなければ起動時にエラーにする。
+- Histrio は同じファイルを `data/life-script/` に**版を固定して**持つ。起動時に設問 ID `life-script-ja`、設問版 `2026-11-13`、追加質問集の参照先および独立した追加質問版 `2026-11-24` を照合する。
 - 採点の受入テストは両方のリポで同じ回答例を使う。どちらかで採点キーを変えたら、もう一方も同じ版へ上げる。
 
 ## 5. API
@@ -73,6 +74,11 @@ updated: 2026-11-24
 |---|---|---|
 | POST | `/v1/personas/:id/questionnaire` | 回答を作って採点し、人格へ割り当てる (`rerun` 省略時、既に run があれば 409) |
 | GET | `/v1/personas/:id/questionnaire` | 最新 run の採点結果・割り当て・確度 (回答そのものは admin のみ) |
+
+- `?namespace=cc|di|shared` は人格を登録した名前空間を指定する。POST の本文は省略または `{"rerun":true}` を含むオブジェクト。説明文が空なら 400 を返し、従来の seed プロファイルを使う。不正なモデル応答は 502 を返し、前の run とプロファイルを保持する。
+- GET で回答本体を含めるには、運用側で `HISTRIO_QUESTIONNAIRE_ADMIN_TOKEN` を設定し、対応する Bearer トークンを送る。GET と POST の結果にはキャッシュを禁止する。
+- 保存済みの反応例は run ID で参照する。判断ログを使う描画も、その判断時の run を参照する。構えが境界の場合、プロフィールには境界を保存し、通常の会話操作は `get-on-with` を使う。
+- `histrio-server rerun-questionnaires` は説明文を持つ仮想人格を全名前空間で処理し、成功・失敗の件数を返す。個々の保存は原子的に行う。
 
 ## 6. 受入基準
 

@@ -56,8 +56,9 @@ Json voice_policy(const Json& profile, const Json& pattern, const Json& decision
 
 Json health() { return ::augur::invoke_observed(::augur::ContractSpec{"C-1", "874893b2", "src/api.cpp:56"}, hi::contracts::health_check, [&]() -> Json { /* augur-inject:contract-wrap:874893b2 */ return {{"status", "ok"}}; }); /* augur-inject:contract-end:874893b2 */ }
 
-Api::Api(Store& store, Invoke invoke, unsigned port, std::string allowed_hosts)
-    : store_(store), invoke_(std::move(invoke)), port_(port) {
+Api::Api(Store& store, Invoke invoke, unsigned port, std::string allowed_hosts,
+         std::optional<QuestionnaireApi> questionnaire)
+    : store_(store), invoke_(std::move(invoke)), port_(port), questionnaire_(std::move(questionnaire)) {
     std::string_view values(allowed_hosts);
     while (!values.empty()) {
         const auto comma = values.find(',');
@@ -138,19 +139,22 @@ ServerResponse Api::route(const ServerRequest& request) {
         if (rendering_.test_and_set()) return response(503, {{"error", "renderer_busy"}});
         struct Clear { std::atomic_flag& flag; ~Clear() { flag.clear(); } } clear{rendering_};
         Json policy;
+        auto persona = snapshot.at("persona");
         if (input.contains("decision_id")) {
             const auto& key = input.at("decision_id");
             if (!key.is_number_integer()) throw InputError("expected an integer decision id");
             const auto recorded = store_.audit(ns, decision_id(key.dump()));
             if (recorded.is_null() || field(recorded, "persona_id") != id) return found(nullptr);
             policy = voice_policy(recorded.at("reason").at("profile"), recorded.at("reason").at("pattern"), recorded);
+            persona["reaction_examples"] = store_.questionnaire_examples(recorded.at("reason").at("profile"));
         } else {
             const auto context = input.value("context", Json::object());
             auto decision = decision_record(snapshot.at("persona"), snapshot.at("profile"), snapshot.at("pattern"),
                                             context, {{"matrix", snapshot.at("matrix")}}, 0);
             policy = voice_policy(snapshot.at("profile"), snapshot.at("pattern"), decision);
+            persona["reaction_examples"] = store_.questionnaire_examples(snapshot.at("profile"));
         }
-        const auto rendered = render(snapshot.at("persona"), input, policy, invoke_);
+        const auto rendered = render(persona, input, policy, invoke_);
         return response(field(rendered, "reason") == "render_unavailable" ? 503 : 200, rendered);
     }
     if (path.starts_with("/v1/personas/")) {
@@ -162,6 +166,8 @@ ServerResponse Api::route(const ServerRequest& request) {
             if (leaf == "profile" && method == "GET") return found(store_.profile(ns, id));
             if (leaf == "learning" && method == "GET") return found(store_.learning(ns, id));
             if (leaf == "decide" && method == "POST") return found(store_.decide(ns, id, body()));
+            if (leaf == "questionnaire" && (method == "GET" || method == "POST"))
+                return questionnaire_route(request, ns, id);
         }
     }
     if (path.starts_with("/v1/decisions/")) {

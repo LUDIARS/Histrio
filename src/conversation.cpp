@@ -104,7 +104,7 @@ Classification classify(const Json& messages, std::string_view event) { return :
 }, messages, event); /* augur-inject:contract-end:c8ffe4fc */ }
 
 std::string operation_for(std::string_view quadrant) {
-    if (quadrant == "I+U+") return "get-on-with";
+    if (quadrant == "I+U+" || quadrant == "border") return "get-on-with";
     if (quadrant == "I+U-") return "constructive-objection";
     if (quadrant == "I-U+") return "get-away-from";
     if (quadrant == "I-U-") return "get-nowhere-with";

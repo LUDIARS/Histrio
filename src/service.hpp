@@ -72,7 +72,7 @@ std::chrono::seconds feed_backoff(unsigned failures);
 using Invoke = std::function<std::string(std::string_view)>;
 std::string build_prompt(const Json& persona, const Json& request, const Json& decision);
 Json render(const Json& persona, const Json& request, const Json& decision, const Invoke& invoke);
-Invoke claude_client();
+Invoke claude_client(std::optional<std::string> role = std::nullopt);
 Json health();
 
 } // namespace hi

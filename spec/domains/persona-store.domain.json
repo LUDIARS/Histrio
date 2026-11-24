@@ -8,6 +8,9 @@
       "pathPattern": "(^|/)src/store.(cpp|hpp)$"
     },
     {
+      "pathPattern": "(^|/)src/store_questionnaire[.]cpp$"
+    },
+    {
       "pathPattern": "(^|/)src/database.(cpp|hpp)$"
     },
     {

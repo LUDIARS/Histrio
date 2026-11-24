@@ -1,8 +1,10 @@
 #pragma once
 
 #include "database.hpp"
+#include "questionnaire.hpp"
 
 #include <mutex>
+#include <set>
 
 namespace hi {
 
@@ -17,6 +19,11 @@ public:
     Json persona(std::string_view ns, std::string_view id);
     Json profile(std::string_view ns, std::string_view id);
     Json render_snapshot(std::string_view ns, std::string_view id);
+    Json run_questionnaire(std::string_view ns, std::string_view id, bool rerun,
+                           const LifeScriptData& data, const Invoke& invoke);
+    Json questionnaire(std::string_view ns, std::string_view id, bool include_answers);
+    Json questionnaire_examples(const Json& profile);
+    Json rerun_questionnaires(const LifeScriptData& data, const Invoke& invoke);
 
     Json put_patterns(std::string_view ns, const Json& document);
     Json patterns(std::string_view ns);
@@ -36,8 +43,10 @@ private:
     Json decision_settings(std::string_view ns, std::string_view id, const Json& pattern,
                            const Json& request, int& turns);
     void apply_feedback(const Json& decision, std::int64_t day, double reward);
+    std::int64_t latest_questionnaire_id(std::string_view ns, std::string_view id);
 
     std::mutex mutex_;
+    std::set<std::pair<std::string, std::string>> pending_questionnaires_;
     Database db_;
     Json roles_;
 };

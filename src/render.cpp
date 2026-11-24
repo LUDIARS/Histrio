@@ -65,6 +65,8 @@ std::string build_prompt(const Json& persona, const Json& request, const Json& d
     prompt += "\n意図: " + std::string(guide->second) + "\n声色: " + voice.dump();
     prompt += "\n会話資料: " + context.dump();
     if (!decision.empty()) prompt += "\n会話方針: " + decision.dump();
+    if (persona.contains("reaction_examples") && !persona.at("reaction_examples").empty())
+        prompt += "\nこの人ならこう言う反応の例（別の場面の資料）: " + persona.at("reaction_examples").dump();
     prompt += "\nJSON オブジェクトを返す。通常は text に本文を入れる。";
     if (field(decision, "operation") == "constructive-objection")
         prompt += "今回は text を出さず objection に assumptions/evidence/risks のいずれかを入れる。";
@@ -96,7 +98,8 @@ Json render(const Json& persona, const Json& request, const Json& decision, cons
         }
         if (decision.value("ask_other", false)) {
             const auto hint = field(response, "other");
-            if (!operation_for(hint).empty()) result["operation_hint"] = hint == "I+U+" ? operation : "get-on-with";
+            if (hint != "border" && !operation_for(hint).empty())
+                result["operation_hint"] = hint == "I+U+" ? operation : "get-on-with";
         }
         return result;
     } catch (const std::exception&) {

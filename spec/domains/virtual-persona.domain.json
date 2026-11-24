@@ -27,10 +27,23 @@
     },
     {
       "pathPattern": "(^|/)data/(script-patterns|roles).json$"
+    },
+    {
+      "pathPattern": "(^|/)src/questionnaire(_(data|followups|profile|prompts|score))?[.](cpp|hpp)$"
+    },
+    {
+      "pathPattern": "(^|/)contracts/questionnaire_.*[.]hpp$"
+    },
+    {
+      "pathPattern": "(^|/)data/life-script/[^/]+[.]json$"
+    },
+    {
+      "pathPattern": "(^|/)tests/(questionnaire[.]cpp|fixtures/life-script/[^/]+[.]json)$"
     }
   ],
   "specRefs": [
     "仮想人格 — 人生脚本パターンを反応の主因とし OK牧場を認識して会話する",
-    "ロールモデルエンジン — 人生脚本 × 状況対応によるペルソナの高精度カテゴライズ"
+    "ロールモデルエンジン — 人生脚本 × 状況対応によるペルソナの高精度カテゴライズ",
+    "仮想人格のアンケート — 人格が人生脚本アンケートに答え、脚本パターンを決める"
   ]
 }

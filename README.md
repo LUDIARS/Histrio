@@ -25,6 +25,7 @@ CMake が固定版の Lapilli、Boost、nlohmann/json、SQLite ソースを取�
 - 実行ファイルは `build/bin/histrio-server.exe`。サービス catalog のポートを CMake の構成時に取り込み、IPv4 ループバックに bind します。`HISTRIO_PORT` で上書きできます。
 - `HISTRIO_DB` は DB のパス。既定は Windows の `%LOCALAPPDATA%/Histrio/histrio.sqlite`、その他では `$XDG_STATE_HOME/Histrio/histrio.sqlite` または `~/.local/state/Histrio/histrio.sqlite` です。`HISTRIO_DATA_DIR` の既定は作業ディレクトリの `data` です。
 - `HISTRIO_RENDER_MODEL` は描画モデルの役割名または明示的な CLI モデル指定。既定の役割は `haiku` です。`HISTRIO_CLAUDE_PATH` で実行ファイルを指定できます。
+- 人格アンケートは `POST /v1/personas/:id/questionnaire` で実行し、`GET` で最新結果を参照できます。回答本体の取得には `HISTRIO_QUESTIONNAIRE_ADMIN_TOKEN` に対応する Bearer トークンが必要です。一括操作は `histrio-server rerun-questionnaires` です。[仮想人格のアンケート仕様](spec/feature/persona-life-script-questionnaire.md)
 - `HISTRIO_CC_FEED_URL` と Vault から渡す `HISTRIO_CC_FEED_TOKEN` を揃えると、Cc フィードを購読します。`HISTRIO_RULES_DISABLED=1` でルールを無効化できます。
 - HTTP の Host はループバック名と `LUDIARS_ALLOWED_HOSTS` を許可します。ブラウザーの Origin 付きリクエストは拒否します。
 

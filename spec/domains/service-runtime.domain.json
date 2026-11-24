@@ -8,6 +8,9 @@
       "pathPattern": "(^|/)src/api.(cpp|hpp)$"
     },
     {
+      "pathPattern": "(^|/)src/questionnaire_api[.]cpp$"
+    },
+    {
       "pathPattern": "(^|/)src/main.cpp$"
     },
     {
