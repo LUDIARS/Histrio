@@ -69,7 +69,7 @@ if(BUILD_TESTING)
                         pattern stance corral constructive privacy audit versions
                         questionnaire_assignment questionnaire_replay questionnaire_scoring
                         questionnaire_invalid questionnaire_privacy questionnaire_followups
-                        claude_output)
+                        claude_output questionnaire_reply_json)
     add_test(NAME hi.${test} COMMAND histrio-tests ${test})
     set_tests_properties(hi.${test} PROPERTIES WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
   endforeach()

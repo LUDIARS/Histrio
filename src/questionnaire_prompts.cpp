@@ -46,6 +46,32 @@ Json section_items(const Json& questionnaire, const Json& section) {
 }
 } // namespace
 
+Json read_reply_json(std::string_view reply) {
+    // ```json ... ``` の囲みがあれば中身だけにする (後ろに付く説明文も落とす)。
+    if (const auto fence = reply.find("```"); fence != std::string_view::npos) {
+        const auto body = reply.find('\n', fence);
+        const auto close = body == std::string_view::npos ? std::string_view::npos : reply.find("```", body);
+        if (close == std::string_view::npos) throw InputError("unterminated code fence in reply");
+        reply = reply.substr(body + 1, close - body - 1);
+    }
+    const auto open = reply.find('{');
+    const auto end = reply.rfind('}');
+    if (open == std::string_view::npos || end == std::string_view::npos || end < open)
+        throw InputError("reply has no JSON object");
+    auto parsed = read_json(reply.substr(open, end - open + 1));
+    // 設問の並び {"items":[{"id":..,"value":..}]} で返ってきたら {id: value} に直す。値の検査はしない。
+    if (parsed.is_object() && parsed.size() == 1 && parsed.contains("items") && parsed.at("items").is_array()) {
+        auto mapped = Json::object();
+        for (const auto& item : parsed.at("items")) {
+            if (!item.is_object() || !item.contains("id") || !item.at("id").is_string() || !item.contains("value"))
+                throw InputError("reply items need id and value");
+            mapped[item.at("id").get<std::string>()] = item.at("value");
+        }
+        return mapped;
+    }
+    return parsed;
+}
+
 bool valid_section_answers(const Json& section, const Json& answers) { return ::augur::invoke_observed(::augur::ContractSpec{"C-15", "cce44dea", "src/questionnaire_prompts.cpp:46"}, hi::contracts::questionnaire_validation_check, [&]() -> bool { /* augur-inject:contract-wrap:cce44dea */
     if (!answers.is_object()) return false;
     const auto& items = section.at("items");
@@ -69,10 +95,14 @@ Json generate_life_script_answers(const Json& questionnaire, const Json& persona
                    {"items", section_items(questionnaire, section)}};
         if (likert) input["choices"] = questionnaire.at("scale").at("labels");
         else input["instruction"] = section.at("prompt");
-        const auto format = likert
-            ? "\n設問 ID と整数 1〜4 の組を JSON オブジェクトで返してください。"
-            : "\n設問 ID と選択肢 ID（文字列）の組を JSON オブジェクトで返してください。";
-        const auto result = read_json(invoke(std::string(persona_instruction) + format + "\n" + input.dump()));
+        const auto& first = section.at("items").at(0);
+        auto example = Json::object();
+        example[first.at("id").get<std::string>()] = likert ? Json(3) : first.at("options").at(0).at("id");
+        const auto format = std::string(likert
+            ? "\nすべての設問に、設問 ID をキー・整数 1〜4 を値にした JSON オブジェクト 1 つで答えてください。"
+            : "\nすべての設問に、設問 ID をキー・選択肢 ID (文字列) を値にした JSON オブジェクト 1 つで答えてください。")
+            + "形の例: " + example.dump() + "。JSON だけを返し、コードブロック・配列・説明文は付けないでください。";
+        const auto result = read_reply_json(invoke(std::string(persona_instruction) + format + "\n" + input.dump()));
         if (!valid_section_answers(section, result)) throw InputError("invalid questionnaire section answers");
         auto& output = likert ? answers : forced;
         output.update(result);
@@ -85,8 +115,9 @@ Json generate_reaction_examples(const Json& topics, const Json& persona, const I
     auto examples = Json::array();
     for (const auto& topic : topics) {
         const Json input{{"persona", persona_context(persona)}, {"ask", topic.at("ask")}};
-        const auto reply = read_json(invoke(std::string(persona_instruction)
-            + "\n質問への短い具体的な答えを JSON の answer に入れて返してください。\n" + input.dump()));
+        const auto reply = read_reply_json(invoke(std::string(persona_instruction)
+            + "\n質問への短い具体的な答えを {\"answer\": \"...\"} の形の JSON だけで返してください。"
+              "コードブロック・説明文は付けないでください。\n" + input.dump()));
         if (!reply.is_object() || reply.size() != 1) throw InputError("invalid questionnaire followup answer");
         auto answer = required_string(reply, "answer");
         if (answer.size() > 2048 || answer.find_first_not_of(" \t\r\n") == std::string::npos)

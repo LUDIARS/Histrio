@@ -20,6 +20,9 @@ Json plan_life_script_followups(const LifeScriptData& data, const Json& score);
 Json questionnaire_assignment(const Json& seed, const Json& score);
 bool questionnaire_eligible(const Json& persona);
 bool valid_section_answers(const Json& section, const Json& answers);
+/** AI の返事から JSON オブジェクトを取り出す。```json の囲みと前後の説明文を除き、
+ *  {"items":[{"id","value"}]} の並びは {id: value} に直す。中身の検査は呼び出し側で行う。 */
+Json read_reply_json(std::string_view reply);
 Json generate_life_script_answers(const Json& questionnaire, const Json& persona, const Invoke& invoke);
 Json generate_reaction_examples(const Json& topics, const Json& persona, const Invoke& invoke);
 

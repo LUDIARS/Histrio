@@ -79,4 +79,5 @@ void questionnaire_invalid_test();
 void questionnaire_privacy_test();
 void questionnaire_followups_test();
 void claude_output_test();
+void questionnaire_reply_json_test();
 } // namespace hi::test

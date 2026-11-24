@@ -226,4 +226,23 @@ void questionnaire_followups_test() {
             && prompts.at(0).contains(fake.reaction) && prompts.at(1).contains(field(old.at(0), "answer"))
             && !prompts.at(1).contains(fake.reaction), "render uses the examples for the selected run");
 }
+
+void questionnaire_reply_json_test() {
+    // 実際の claude (haiku) の返事: ```json の囲み + 説明文 + 設問の並び
+    const auto fenced = read_reply_json("```json\n{\"items\":[{\"id\":\"D-BP-1\",\"value\":4},"
+                                        "{\"id\":\"D-BS-1\",\"value\":3}]}\n```\n\n尺度は1〜4として解釈しました。");
+    require(fenced == Json{{"D-BP-1", 4}, {"D-BS-1", 3}}, "fenced items reply becomes an id map");
+    require(read_reply_json(R"(前置き {"FC-1":"a"} 後書き)") == Json{{"FC-1", "a"}}, "surrounding prose is dropped");
+    require(read_reply_json(R"({"answer":"そうですね"})") == Json{{"answer", "そうですね"}}, "plain object is kept");
+    const auto rejects = [](std::string_view reply) {
+        try { (void)read_reply_json(reply); } catch (const std::exception&) { return true; }
+        return false;
+    };
+    require(rejects("[]"), "array reply");
+    require(rejects("```json\n{\"D-BP-1\":3}"), "unterminated fence");
+    require(rejects("答えられません"), "no JSON object");
+    require(rejects(R"({"items":[{"value":3}]})"), "items without id");
+    // 値の範囲の検査は read_reply_json ではなく valid_section_answers が行う (5 はここでは通る)
+    require(read_reply_json(R"({"D-BP-1":5})") == Json{{"D-BP-1", 5}}, "values are not validated here");
+}
 } // namespace hi::test
